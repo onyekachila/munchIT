@@ -1,6 +1,19 @@
 <template>
   <div class="wrapper menu__container">
-    <p>This is the menu container.</p>
+    <div class="row">
+      <div class="col-md-8">
+        <card-component>
+          <template slot="title">My menu items</template>
+          <template slot="body">Content will come here</template>
+        </card-component>
+      </div>
+      <div class="col-md-4">
+        <card-component>
+          <template slot="title">Add Menu Item</template>
+          <template slot="body">Form will come here</template>
+        </card-component>
+      </div>
+    </div>
   </div>
 </template>
 
