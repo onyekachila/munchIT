@@ -9,6 +9,7 @@
               <label for="selector">Select a category</label>
               <multiselect :options="categories" v-model="menu"></multiselect>
             </div>
+            <menu-group :items="currentMenuItems"></menu-group>
           </template>
         </card-component>
       </div>
@@ -25,11 +26,13 @@
 <script>
 import _ from "lodash";
 import Multiselect from "vue-multiselect";
+import MenuGroup from "./Menugroups.vue";
 
 export default {
   props: ["items"],
   components: {
-    Multiselect
+    Multiselect,
+    MenuGroup
   },
 
   created() {
@@ -44,6 +47,11 @@ export default {
       menu: "",
       categories: []
     };
+  },
+  computed: {
+    currentMenuItems() {
+      return this.items[this.menu];
+    }
   }
 };
 </script>
