@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
-    protected $with = ['category'];
+    protected $with = ['category'];  // whenever $this model is being called make sure it comes with the relationship. 
     
     public function category()
     {
