@@ -66,6 +66,7 @@ export default {
     handleSubmit() {
       console.log("form data", this.food); // this will log everything in the console for demo purposes.
       let postData = this.food;
+      postData.restoId = this.restoId;
       window.axios
         .post("api/item/save", postData)
         .then(response => {

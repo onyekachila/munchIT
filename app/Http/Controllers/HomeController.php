@@ -20,14 +20,13 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\Response
      */
     public function index(MenuService $service)
     {
-        $resto_ids = [1];
+        $restoId = 1;
+        $menus = $service->getMenuWithCategories($restoId);
 
-        $menus = $service->getMenuWithCategory($resto_ids);
-
-        return view('home', compact('menus'));
+        return view('home', compact('menus', 'restoId'));
     }
 }

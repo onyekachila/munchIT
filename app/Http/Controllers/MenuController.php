@@ -8,6 +8,12 @@ class MenuController extends Controller
 {
     public function saveMenuItem(Request $request)
     {
-        return $request->all(); 
+        $postData = $this->validate($request, [
+            'category' => 'required',
+            'price' => 'required|numeric',
+            'item' => 'required',
+        ]);
+
+        return $postData; 
     }
 }

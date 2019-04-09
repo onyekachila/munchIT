@@ -6,12 +6,12 @@ use App\Models\Menu;
 
 class MenuService
 {
-    public function getMenuWithCategory(array $restoIds)
+    public function getMenuWithCategories($restoId)
     {
-        $categories = Menu::whereIn('resto_id', $restoIds)
-        ->get()
-        ->groupBy('category.name');
+        $menuItems = Menu::where('resto_id', $restoId)
+            ->get()
+            ->groupBy('category.name');
 
-        return $categories;
+        return $menuItems;
     }
 }

@@ -1944,7 +1944,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["items"],
+  props: ["items", 'restoId'],
   components: {
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a,
     MenuGroup: _Menugroups_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
