@@ -1886,6 +1886,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log("form data", this.food); // this will log everything in the console for demo purposes.
 
       var postData = this.food;
+      postData.restoId = this.restoId;
       window.axios.post("api/item/save", postData).then(function (response) {
         console.log("response", response.data);
       }).catch(function (error) {
@@ -37929,7 +37930,12 @@ var render = function() {
                 "template",
                 { slot: "body" },
                 [
-                  _c("menu-add-form", { attrs: { categories: _vm.categories } })
+                  _c("menu-add-form", {
+                    attrs: {
+                      categories: _vm.categories,
+                      "resto-id": _vm.restoId
+                    }
+                  })
                 ],
                 1
               )
