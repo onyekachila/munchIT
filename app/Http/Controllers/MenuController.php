@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Rules\RestoCategoryValidate;
+use App\Rules\RestoCategoryValidation;
 
 class MenuController extends Controller
 {
     public function saveMenuItem(Request $request)
     {
         $postData = $this->validate($request, [
-            'category' => ['required', new RestoCategoryValidate], 
+            'restoId' => 'required|numeric',
             'price' => 'required|numeric',
             'item' => 'required',
+            'category' => ['required', new RestoCategoryValidation(request('restoId'))],
         ]);
 
-        return $postData; 
+        
     }
 }

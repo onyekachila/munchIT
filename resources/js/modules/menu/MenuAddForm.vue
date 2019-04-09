@@ -46,7 +46,7 @@
 import Multiselect from "vue-multiselect";
 
 export default {
-  props: ["categories"],
+  props: ["categories", 'restoId'],
 
   components: {
     Multiselect
