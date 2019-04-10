@@ -18,9 +18,9 @@
       <input
         type="text"
         class="form-control"
-        name="address"
-        v-model="resto.address"
-        placeholder="Enter restaurant address"
+        name="location"
+        v-model="resto.location"
+        placeholder="Enter restaurant location"
       >
     </div>
 
@@ -41,7 +41,14 @@
 </template>
 
 <script>
+// import axios from "axios"; // for testing purpose .
 export default {
+  // created() {
+  //   axios.get("/api/user").then(response => {
+  //     console.log("user", response.data);
+  //   });
+  // },  // this is yo test api
+
   data() {
     return {
       resto: this.basicResto()
@@ -52,7 +59,7 @@ export default {
     basicResto() {
       return {
         name: "",
-        address: "",
+        location: "",
         tables: 0
       };
     },

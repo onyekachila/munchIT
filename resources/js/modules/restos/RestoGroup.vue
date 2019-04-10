@@ -1,7 +1,7 @@
 <template>
   <div class="resto-group__wrapper mb-5">
     <div class="row">
-      <div class="col-md-4 mb-4" v-for="resto in restos" :key="resto.id">
+      <div class="col-md-4 mb-4" v-for="resto in localResto" :key="resto.id">
         <card-component>
           <template slot="title">{{resto.name}}</template>
           <template slot="body">{{resto.location}}</template>
@@ -28,6 +28,7 @@
 
 <script>
 import RestoAddForm from "./RestoAddForm.vue";
+import axios from "axios";
 export default {
   components: {
     RestoAddForm
@@ -36,17 +37,20 @@ export default {
   props: ["restos"],
 
   created() {
-    console.log("this.restos.length", this.restos.length);
+   // console.log("this.restos.length", this.restos.length);
+    this.localResto = this.restos; 
   },
 
   computed: {
     showAddForm() {
-      return this.restos.length < 5 ? true : false;
+      return this.localResto.length < 5 ? true : false;
     }
   },
 
   data() {
-    return {};
+    return {
+      localResto: []
+    };
   },
 
   methods: {
@@ -58,6 +62,11 @@ export default {
     },
     handleSaveResto(restoData) {
       console.log("restoData", restoData);
+      axios.post("/api/resto", restoData).then(response => {
+        // console.log("response", response.data);
+        this.localResto.unshift(response.data); 
+        this.$modal.hide("add-new-resto");
+      });
     }
   }
 };
