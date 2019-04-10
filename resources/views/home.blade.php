@@ -4,7 +4,7 @@
 <div class="container">
    
    <div class="col-md-12">
-   <resto-group :resto="{{json_encode($restos)}}"></resto-group>
+   <resto-group :restos="{{json_encode($restos)}}"></resto-group>
    </div>
   
    <div class="col-md-12">
