@@ -1,0 +1,9 @@
+So to get recipient belonging to a user
+
+use the logic used for getting menus by category for getting recipient in the users sending list
+
+we can use tinker to find user (owner_id) with restaurants attached to this owner or belonging to this owner
+$user = App\User::with('restaurants')->find(1);  // gets the owner with restaurants as id is passed to it i.e. id of the user
+or
+$user = App\User::with('restaurants')->get()  // to just get only the restaurants.
+

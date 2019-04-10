@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\MenuService;
+use App\Services\RestoService; 
 
 class HomeController extends Controller
 {
@@ -22,11 +23,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(MenuService $service)
+    public function index(MenuService $service, RestoService $restoService)
     {
         $restoId = 1;
         $menus = $service->getMenuWithCategories($restoId);
 
-        return view('home', compact('menus', 'restoId'));
+        $restos = $restoService->userRestoAndTables();  // we can dd($restos)
+
+
+
+        return view('home', compact('menus', 'restoId', 'restos'));
     }
 }

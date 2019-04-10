@@ -9,11 +9,13 @@
           placeholder="Enter food item name"
           v-model="food.item"
         >
+        <div class="validation-message" v-text="validation.getMessage('item')"></div>
       </div>
 
       <div class="form-group">
         <label for="name">Select category</label>
         <multiselect v-model="food.category" :options="categories"></multiselect>
+        <div class="validation-message" v-text="validation.getMessage('category')"></div>
       </div>
 
       <div class="form-group">
@@ -24,16 +26,18 @@
           placeholder="Enter food item price"
           v-model="food.price"
         >
+        <div class="validation-message" v-text="validation.getMessage('price')"></div>
       </div>
 
-      <!-- <div class="form-group">
+      <div class="form-group">
         <label for="name">Description</label>
         <textarea
           class="form-control"
           v-model="food.description"
           placeholder="Enter item description"
         ></textarea>
-      </div>-->
+        <div class="validation-message" v-text="validation.getMessage('description')"></div>
+      </div>
 
       <div class="form-group">
         <button class="btn btn-primary">Save</button>
@@ -44,7 +48,7 @@
 
 <script>
 import Multiselect from "vue-multiselect";
-
+import Validation from "./../../utils/Validation.js"; 
 export default {
   props: ["categories", 'restoId'],
 
@@ -54,15 +58,20 @@ export default {
 
   data() {
     return {
-      food: {
-        item: "",
-        category: "",
-        price: 100
-      }
+      food: this.emptyFoodItem(),
+      validation: new Validation()
     };
   },
 
   methods: {
+    emptyFoodItem() {
+     return {
+        item: "",
+        category: "",
+        price: 100,
+        description: ''
+      }; 
+    },
     handleSubmit() {
       console.log("form data", this.food); // this will log everything in the console for demo purposes.
       let postData = this.food;
@@ -71,11 +80,17 @@ export default {
         .post("api/item/save", postData)
         .then(response => {
           console.log("response", response.data);
-        })
-        .catch(error => console.log("error", error.response));
+          this.$emit('newMenuItemAdded', response.data, postData.category);
+          this.food = this.emptyFoodItem(); 
+        }).catch(error => {
+        if (error.response.status && error.response.status == 422) {
+          this.validation.setMessages(error.response.data.errors);
+        }
+        console.log('error', error);
+      });
     }
   }
-};
+}
 </script>
 
 

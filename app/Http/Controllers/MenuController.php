@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Rules\RestoCategoryValidation;
+use App\Models\Category; 
+use App\Models\Menu; 
+
 
 class MenuController extends Controller
 {
@@ -13,9 +16,30 @@ class MenuController extends Controller
             'restoId' => 'required|numeric',
             'price' => 'required|numeric',
             'item' => 'required',
+            'description' => 'required|min:3',
             'category' => ['required', new RestoCategoryValidation(request('restoId'))],
         ]);
 
-        
+        $category = Category::where('resto_id', $postData['restoId'])->where('name', $postData['category'])->first(); 
+
+        // $conditions = [
+        //     'resto_id' => $postData['restoId'],
+        //     'name' => $postData['category'],
+        // ];
+
+        // $category = Category::where($conditions)
+        //     ->first();
+
+        // $menu = $category->menus()->create([
+        $menu = Menu::create([
+            'name' => $postData['item'],
+            'price' => $postData['price'],
+            'description' => $postData['description'],
+            'resto_id' => $postData['restoId'],
+            'category_id' => $category->id,
+        ]);
+
+        return response()->json($menu, 201);
     }
+
 }
