@@ -4,12 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Rules\RestoCategoryValidation;
-use App\Models\Category; 
-use App\Models\Menu; 
-
+use App\Models\Category;
+use App\Models\Menu;
+use App\Services\MenuService;
 
 class MenuController extends Controller
 {
+    public function index($id)
+    {
+        $restoId = $id;
+        $service = new MenuService;
+        $menus = $service->getMenuWithCategories($restoId);
+
+        return view('menus.menu-index', compact('menus', 'restoId'));
+    }
+    
     public function saveMenuItem(Request $request)
     {
         $postData = $this->validate($request, [
@@ -20,17 +29,8 @@ class MenuController extends Controller
             'category' => ['required', new RestoCategoryValidation(request('restoId'))],
         ]);
 
-        $category = Category::where('resto_id', $postData['restoId'])->where('name', $postData['category'])->first(); 
+        $category = Category::where('resto_id', $postData['restoId'])->where('name', $postData['category'])->first();
 
-        // $conditions = [
-        //     'resto_id' => $postData['restoId'],
-        //     'name' => $postData['category'],
-        // ];
-
-        // $category = Category::where($conditions)
-        //     ->first();
-
-        // $menu = $category->menus()->create([
         $menu = Menu::create([
             'name' => $postData['item'],
             'price' => $postData['price'],
@@ -41,5 +41,4 @@ class MenuController extends Controller
 
         return response()->json($menu, 201);
     }
-
 }

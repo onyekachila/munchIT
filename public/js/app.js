@@ -1874,7 +1874,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["categories", 'restoId'],
+  props: ["categories", "restoId"],
   components: {
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
@@ -1890,7 +1890,7 @@ __webpack_require__.r(__webpack_exports__);
         item: "",
         category: "",
         price: 100,
-        description: ''
+        description: ""
       };
     },
     handleSubmit: function handleSubmit() {
@@ -1900,10 +1900,10 @@ __webpack_require__.r(__webpack_exports__);
 
       var postData = this.food;
       postData.restoId = this.restoId;
-      window.axios.post("api/item/save", postData).then(function (response) {
+      window.axios.post("/api/item", postData).then(function (response) {
         console.log("response", response.data);
 
-        _this.$emit('newMenuItemAdded', response.data, postData.category);
+        _this.$emit("newMenuItemAdded", response.data, postData.category);
 
         _this.food = _this.emptyFoodItem();
       }).catch(function (error) {
@@ -1911,7 +1911,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.validation.setMessages(error.response.data.errors);
         }
 
-        console.log('error', error);
+        console.log("error", error);
       });
     }
   }

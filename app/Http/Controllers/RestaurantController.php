@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\RestoService;
 
 class RestaurantController extends Controller
 {
+    public function index(RestoService $restoService)
+    {
+        $restos = $restoService->userRestoAndTables();
+
+        return view('restos.resto-index')->with('restos', $restos);
+    }
+    
     public function store(Request $request)
     {
         $postData = $this->validate($request, [
@@ -19,6 +27,6 @@ class RestaurantController extends Controller
 
         return response()->json($resto, 201);
 
-        return $request->all();
+        //return $request->all();
     }
 }

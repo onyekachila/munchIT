@@ -18,3 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/restos', 'RestaurantController@index')->name('restos');
+});
+
+Route::get('/restos/menu/{id}', 'MenuController@index')->name('restos.menu');

@@ -48,9 +48,9 @@
 
 <script>
 import Multiselect from "vue-multiselect";
-import Validation from "./../../utils/Validation.js"; 
+import Validation from "./../../utils/Validation.js";
 export default {
-  props: ["categories", 'restoId'],
+  props: ["categories", "restoId"],
 
   components: {
     Multiselect
@@ -65,32 +65,33 @@ export default {
 
   methods: {
     emptyFoodItem() {
-     return {
+      return {
         item: "",
         category: "",
         price: 100,
-        description: ''
-      }; 
+        description: ""
+      };
     },
     handleSubmit() {
       console.log("form data", this.food); // this will log everything in the console for demo purposes.
       let postData = this.food;
       postData.restoId = this.restoId;
       window.axios
-        .post("api/item/save", postData)
+        .post("/api/item", postData)
         .then(response => {
           console.log("response", response.data);
-          this.$emit('newMenuItemAdded', response.data, postData.category);
-          this.food = this.emptyFoodItem(); 
-        }).catch(error => {
-        if (error.response.status && error.response.status == 422) {
-          this.validation.setMessages(error.response.data.errors);
-        }
-        console.log('error', error);
-      });
+          this.$emit("newMenuItemAdded", response.data, postData.category);
+          this.food = this.emptyFoodItem();
+        })
+        .catch(error => {
+          if (error.response.status && error.response.status == 422) {
+            this.validation.setMessages(error.response.data.errors);
+          }
+          console.log("error", error);
+        });
     }
   }
-}
+};
 </script>
 
 

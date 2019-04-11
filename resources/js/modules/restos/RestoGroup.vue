@@ -37,8 +37,8 @@ export default {
   props: ["restos"],
 
   created() {
-   // console.log("this.restos.length", this.restos.length);
-    this.localResto = this.restos; 
+    // console.log("this.restos.length", this.restos.length);
+    this.localResto = this.restos;
   },
 
   computed: {
@@ -64,7 +64,7 @@ export default {
       console.log("restoData", restoData);
       axios.post("/api/resto", restoData).then(response => {
         // console.log("response", response.data);
-        this.localResto.unshift(response.data); 
+        this.localResto.unshift(response.data);
         this.$modal.hide("add-new-resto");
       });
     }
