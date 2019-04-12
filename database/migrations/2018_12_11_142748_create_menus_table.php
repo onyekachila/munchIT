@@ -14,12 +14,12 @@ class CreateMenusTable extends Migration
     public function up()
     {
         Schema::create('menus', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name');
             $table->text('description');
             $table->float('price', 6, 2);
-            $table->unsignedInteger('resto_id'); 
-            $table->unsignedInteger('category_id'); 
+            $table->unsignedInteger('resto_id');
+            $table->unsignedInteger('category_id');
             $table->timestamps();
         });
     }

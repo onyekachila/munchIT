@@ -4,14 +4,22 @@
       <div class="col-md-4 mb-4" v-for="resto in localResto" :key="resto.id">
         <card-component>
           <template slot="title">{{resto.name}}</template>
-          <template slot="body">{{resto.location}}</template>
+          <template slot="body">
+            <i class="fa fa-map-marker-alt"></i>
+            {{resto.location}}
+            <br>
+            <a class="card-link" v-bind:href="resto.slug">Menu</a>
+            <a class="card-link" v-bind:href="resto.ordersSlug">Orders</a>
+          </template>
         </card-component>
       </div>
       <div class="col-md-4" v-if="showAddForm">
         <card-component>
           <template slot="title">Add new Restaurant</template>
           <template slot="body">
-            <span @click="handleAddNewResto">+</span>
+            <span @click="handleAddNewResto">
+              <i class="fa fa-plus-circle fa-5x pointer">+</i>
+            </span>
           </template>
         </card-component>
         <modal name="add-new-resto" height="55%">
@@ -74,5 +82,13 @@ export default {
 
 
 
-<style>
+<style lang="scss" scoped>
+.add-button-wrapper {
+  text-align: center;
+}
+.content-container {
+  height: 70px;
+}
+</style>
+
 </style> 

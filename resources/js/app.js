@@ -7,11 +7,14 @@
 
 require('./bootstrap');
 require('vue-multiselect/dist/vue-multiselect.min.css');
-import VModal from 'vue-js-modal'; 
+import VModal from 'vue-js-modal';
+import Turbolinks from 'turbolinks';
+import TurbolinksAdapter from 'vue-turbolinks';
 
 window.Vue = require('vue');
 
-Vue.use(VModal)
+Vue.use(VModal);
+Turbolinks.start();
 
 /**
  * The following block of code may be used to automatically register your
@@ -36,6 +39,11 @@ Vue.component('resto-group', require('./modules/restos/RestoGroup.vue').default)
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app'
+document.addEventListener('turbolinks:load', () => {
+    var element = document.getElementById('app');
+    if (element != null) {
+        const app = new Vue({
+            el: element
+        });
+    }
 });
