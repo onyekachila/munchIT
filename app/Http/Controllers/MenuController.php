@@ -16,6 +16,10 @@ class MenuController extends Controller
         $service = new MenuService;
         $menus = $service->getMenuWithCategories($restoId);
 
+        if (!$menus) {
+            abort(400, 'Wrong Restaurant');
+        }
+
         return view('menus.menu-index', compact('menus', 'restoId'));
     }
     
@@ -40,5 +44,15 @@ class MenuController extends Controller
         ]);
 
         return response()->json($menu, 201);
+    }
+
+    public function getRestoMenu(Request $request)
+    {
+        $this->validate($request, [
+            'restoId' => 'required|exists:restaurants,id',
+        ]);
+
+        $menuItems = Menu::where('resto_id', $request->input('restoId'))->get();
+        return response()->json($menuItems, 200);
     }
 }

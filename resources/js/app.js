@@ -31,6 +31,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('card-component', require('./components/Card.vue').default);
 Vue.component('menu-container', require('./modules/menu/MenuContainer.vue').default);
 Vue.component('resto-group', require('./modules/restos/RestoGroup.vue').default);
+Vue.component('order-group', require('./modules/orders/OrderGroup.vue').default);
 
 
 /**
